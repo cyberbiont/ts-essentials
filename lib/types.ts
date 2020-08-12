@@ -205,6 +205,7 @@ export type RequiredKeys<T> = Exclude<keyof T, OptionalKeys<T>>;
 /** Recursively omit deep properties */
 // explicitly mentioning optional properties, to work around TS making them required
 // see https://github.com/krzkaczor/ts-essentials/issues/118
+
 export type DeepOmit<T extends FilterModify<F>, F> = T extends Builtin
   ? T
   : T extends Map<infer KeyType, infer ValueType>

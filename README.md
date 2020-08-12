@@ -18,53 +18,48 @@ npm install --save-dev ts-essentials
 ```
 
 👉 We require `typescript>=3.7`. If you're looking for support for older TS versions use `ts-essentials@3` (for 3.6>=)
-or `ts-essentials@2` instead. If you use any [functions](https://github.com/krzkaczor/ts-essentials/blob/master/lib/functions.ts) you should add `ts-essentials` to your `dependencies` (`npm install --save ts-essentials`) to avoid runtime errors in production.
+or `ts-essentials@2` instead. If you use any
+[functions](https://github.com/krzkaczor/ts-essentials/blob/master/lib/functions.ts) you should add `ts-essentials` to
+your `dependencies` (`npm install --save ts-essentials`) to avoid runtime errors in production.
 
 ## What's inside?
 
-- [Install](#Install)
-- [What's inside?](#Whats-inside)
-  - [Basic](#Basic)
-  - [Dictionaries](#Dictionaries)
-  - [Deep\* wrapper types](#Deep-wrapper-types)
-    - DeepPartial
-    - DeepRequired
-    - DeepReadonly
-    - DeepNonNullable
-    - DeepNullable
-    - DeepUndefinable
-  - [Writable & DeepWritable](#Writable)
-  - [Buildable](#Buildable)
-  - [Omit](#Omit)
-  - [StrictOmit](#StrictOmit)
-    - [Comparison between `Omit` and `StrictOmit`](#Comparison-between-Omit-and-StrictOmit)
-  - [DeepOmit](#DeepOmit)
-  - [OmitProperties](#OmitProperties)
-  - [PickProperties](#PickProperties)
-  - [NonNever](#NonNever)
-  - [Merge](#Merge)
-  - [MarkRequired](#MarkRequired)
-  - [MarkOptional](#MarkOptional)
-  - [ReadonlyKeys](#ReadonlyKeys)
-  - [WritableKeys](#WritableKeys)
-  - [OptionalKeys](#OptionalKeys)
-  - [RequiredKeys](#RequiredKeys)
-  - [UnionToIntersection](#UnionToIntersection)
-  - [Opaque types](#Opaque-types)
-  - [Tuple constraint](#Tuple-constraint)
-  - [Exhaustive switch cases](#Exhaustive-switch-cases)
-  - [ValueOf type](#ValueOf-type)
-  - [ElementOf type](#ElementOf-type)
-  - [AsyncOrSync type](#AsyncOrSync-type)
+- [Install](#install)
+- [What's inside?](#whats-inside)
+  - [Basic](#basic)
+  - [Dictionaries](#dictionaries)
+  - [Deep\* wrapper types](#deep-wrapper-types)
+  - [Writable](#writable)
+  - [Buildable](#buildable)
+  - [Omit](#omit)
+  - [StrictOmit](#strictomit)
+    - [Comparison between `Omit` and `StrictOmit`](#comparison-between-omit-and-strictomit)
+  - [DeepOmit](#deepomit)
+  - [OmitProperties](#omitproperties)
+  - [PickProperties](#pickproperties)
+  - [NonNever](#nonnever)
+  - [NonEmptyObject](#nonemptyobject)
+  - [Merge](#merge)
+  - [MarkRequired](#markrequired)
+  - [MarkOptional](#markoptional)
+  - [ReadonlyKeys](#readonlykeys)
+  - [WritableKeys](#writablekeys)
+  - [OptionalKeys](#optionalkeys)
+  - [RequiredKeys](#requiredkeys)
+  - [UnionToIntersection](#uniontointersection)
+  - [Opaque types](#opaque-types)
+  - [Tuple constraint](#tuple-constraint)
+  - [Exhaustive switch cases](#exhaustive-switch-cases)
+  - [ValueOf type](#valueof-type)
+  - [ElementOf type](#elementof-type)
+  - [AsyncOrSync type](#asyncorsync-type)
   - [Awaited type](#awaited-type)
   - [Newable](#newable)
-  - [Assertions](#Assertions)
-  - [Exact](#Exact)
-  - [XOR](#XOR)
+  - [Assertions](#assertions)
+  - [Exact](#exact)
+  - [XOR](#xor)
   - [Functional type essentials](#functional-type-essentials)
-    - Head
-    - Tail
-- [Contributors](#Contributors)
+- [Contributors](#contributors)
 
 ### Basic
 
@@ -365,6 +360,7 @@ NOTE
 
 - `DeepOmit` works fine with `Array`s and `Set`s. When applied to a `Map`, the filter is only applied to its value.
 - If there exists any property in the filter which is not in the original type, an error will occur.
+- You can omit optional properties. You have to specify them as optional in filter too, otherwise you will get the error saying that property types are incompatible.
 
 ### OmitProperties
 
@@ -845,6 +841,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification.
