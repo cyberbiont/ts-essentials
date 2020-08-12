@@ -18,7 +18,9 @@ npm install --save-dev ts-essentials
 ```
 
 👉 We require `typescript>=3.7`. If you're looking for support for older TS versions use `ts-essentials@3` (for 3.6>=)
-or `ts-essentials@2` instead. If you use any [functions](https://github.com/krzkaczor/ts-essentials/blob/master/lib/functions.ts) you should add `ts-essentials` to your `dependencies` (`npm install --save ts-essentials`) to avoid runtime errors in production.
+or `ts-essentials@2` instead. If you use any
+[functions](https://github.com/krzkaczor/ts-essentials/blob/master/lib/functions.ts) you should add `ts-essentials` to
+your `dependencies` (`npm install --save ts-essentials`) to avoid runtime errors in production.
 
 ## What's inside?
 
@@ -359,6 +361,7 @@ NOTE
 
 - `DeepOmit` works fine with `Array`s and `Set`s. When applied to a `Map`, the filter is only applied to its value.
 - If there exists any property in the filter which is not in the original type, an error will occur.
+- You can omit optional properties. You have to specify them as optional in filter too, otherwise you will get the error saying that property types are incompatible.
 
 ### DeepPick
 
@@ -875,6 +878,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification.

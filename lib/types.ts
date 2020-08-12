@@ -205,6 +205,7 @@ export type RequiredKeys<T> = Exclude<keyof T, OptionalKeys<T>>;
 /** Recursively omit deep properties */
 // explicitly mentioning optional properties, to work around TS making them required
 // see https://github.com/krzkaczor/ts-essentials/issues/118
+
 export type DeepOmit<T extends FilterModify<F>, F> = T extends Builtin
   ? T
   : T extends Map<infer KeyType, infer ValueType>
@@ -242,7 +243,7 @@ export type DeepOmit<T extends FilterModify<F>, F> = T extends Builtin
   : { [K in Exclude<OptionalKeys<T>, keyof F>]+?: T[K] } &
       OmitProperties<
         {
-          [K in Extract<OptionalKeys<T>, keyof F>]+?: F[K] extends true
+          [K in Extract<OptionalKeys<T>, keyof F>]+?: F[K] extends undefined
             ? never
             : T[K] extends FilterModify<F[K]>
             ? DeepOmit<T[K], F[K]>
@@ -253,7 +254,7 @@ export type DeepOmit<T extends FilterModify<F>, F> = T extends Builtin
       { [K in Exclude<RequiredKeys<T>, keyof F>]: T[K] } &
       OmitProperties<
         {
-          [K in Extract<RequiredKeys<T>, keyof F>]: F[K] extends true
+          [K in Extract<RequiredKeys<T>, keyof F>]: F[K] extends never
             ? never
             : T[K] extends FilterModify<F[K]>
             ? DeepOmit<T[K], F[K]>
@@ -299,7 +300,7 @@ export declare type DeepPick<T extends FilterModify<F>, F> = T extends Builtin
     : T
   : OmitProperties<
       {
-        [K in Extract<OptionalKeys<T>, keyof F>]+?: F[K] extends never
+        [K in Extract<OptionalKeys<T>, keyof F>]+?: F[K] extends undefined
           ? T[K]
           : T[K] extends FilterModify<F[K]>
           ? DeepPick<T[K], F[K]>
@@ -319,16 +320,27 @@ export declare type DeepPick<T extends FilterModify<F>, F> = T extends Builtin
       >;
 
 type FilterModify<T> =
-  | {
-      [K in keyof T]: T[K] extends never ? any : T[K] extends object ? FilterModify<T[K]> : never;
-    }
+  | ({
+      [K in Extract<OptionalKeys<T>, keyof T>]?: T[K] extends undefined
+        ? unknown
+        : T[K] extends Record<string, unknown>
+        ? FilterModify<T[K]>
+        : never;
+    } &
+      {
+        [K in Extract<RequiredKeys<T>, keyof T>]: T[K] extends never
+          ? unknown
+          : T[K] extends Record<string, unknown>
+          ? FilterModify<T[K]>
+          : never;
+      })
   | Array<FilterModify<T>>
   | Promise<FilterModify<T>>
   | Set<FilterModify<T>>
   | ReadonlySet<FilterModify<T>>
   | WeakSet<FilterModify<T>>
-  | Map<any, FilterModify<T>>
-  | WeakMap<any, FilterModify<T>>;
+  | Map<unknown, FilterModify<T>>
+  | WeakMap<Record<string, unknown>, FilterModify<T>>;
 
 /** Remove keys with `never` value from object type */
 export type NonNever<T extends {}> = Pick<T, { [K in keyof T]: T[K] extends never ? never : K }[keyof T]>;
