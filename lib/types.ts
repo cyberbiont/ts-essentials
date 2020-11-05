@@ -301,7 +301,7 @@ export declare type DeepPick<T extends FilterModify<F>, F> = T extends Builtin
       {
         [K in Extract<OptionalKeys<T>, keyof F>]+?: F[K] extends never
           ? T[K]
-          : T[K] extends FilterModify<F[K]>
+          : F[K] extends object
           ? DeepPick<T[K], F[K]>
           : never;
       },
@@ -320,7 +320,7 @@ export declare type DeepPick<T extends FilterModify<F>, F> = T extends Builtin
 
 type FilterModify<T> =
   | {
-      [K in keyof T]: T[K] extends never ? any : T[K] extends object ? FilterModify<T[K]> : never;
+      [K in keyof T]+?: T[K] extends never ? any : T[K] extends object ? FilterModify<T[K]> : never;
     }
   | Array<FilterModify<T>>
   | Promise<FilterModify<T>>
